@@ -7,7 +7,7 @@ from employee_events import QueryBase, Employee, Team
 
 # import the load_model function from the utils.py file
 #### YOUR CODE HERE
-from report.utils import load_model
+from utils import load_model
 
 """
 Below, we import the parent classes
@@ -33,7 +33,7 @@ class ReportDropdown(Dropdown):
     # ensuring it has the same parameters
     # as the Report parent class's method
     #### YOUR CODE HERE
-    def build_component(self, model, **kwargs):
+    def build_component(self, entity_id, model):
         #  Set the `label` attribute so it is set
         #  to the `name` attribute for the model
         #### YOUR CODE HERE
@@ -43,8 +43,8 @@ class ReportDropdown(Dropdown):
         # Return the output from the
         # parent class's build_component method
         #### YOUR CODE HERE
-        return super().build_component(model, **kwargs)
-    
+        return super().build_component(entity_id, model)
+
     # Overwrite the `component_data` method
     # Ensure the method uses the same parameters
     # as the parent class method
@@ -53,10 +53,9 @@ class ReportDropdown(Dropdown):
         # call the employee_events method
         # that returns the user-type's
         # names and ids
-    def component_data(self, model: QueryBase, **kwargs):
-        out = model.names_ids()
+    def component_data(self, entity_id, model):
+        out = model.names()
         return out
-
 
 # Create a subclass of base_components/BaseComponent
 # called `Header`
@@ -67,7 +66,7 @@ class Header(BaseComponent):
     # Ensure the method has the same parameters
     # as the parent class
     #### YOUR CODE HERE
-    def build_component(self, model: QueryBase, **kwargs):
+    def build_component(self, entity_id, model):
         
         # Using the model argument for this method
         # return a fasthtml H1 objects
@@ -153,7 +152,7 @@ class BarChart(MatplotlibViz):
     # assign the attribute to the output
     # of the `load_model` utils function
     #### YOUR CODE HERE
-    predictor = load_model('bar_chart')
+    predictor = load_model()
 
 
     # Overwrite the parent class `visualization` method
@@ -282,7 +281,7 @@ class Report(CombinedComponent):
     
 # Initialize a fasthtml app 
 #### YOUR CODE HERE
-app = fast_app()
+app, rt = fast_app()
 
 # Initialize the `Report` class
 #### YOUR CODE HERE

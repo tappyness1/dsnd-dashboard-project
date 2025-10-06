@@ -6,8 +6,9 @@ import pandas as pd
 # Using pathlib, create a `db_path` variable
 # that points to the absolute path for the `employee_events.db` file
 #### YOUR CODE HERE
-db_path = Path("./employee_events/employee_events.db").resolve()
-
+# the file is locared in the employee_events folder
+db_path = Path(__file__).parent / "employee_events.db"
+db_path = db_path.resolve()
 
 # OPTION 1: MIXIN
 # Define a class called `QueryMixin`
